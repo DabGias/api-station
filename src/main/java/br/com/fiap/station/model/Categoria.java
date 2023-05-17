@@ -1,5 +1,7 @@
 package br.com.fiap.station.model;
 
+import org.springframework.hateoas.EntityModel;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -48,6 +50,12 @@ public class Categoria {
     public Categoria(String nome, String descricao) {
         this.nome = nome;
         this.descricao = descricao;
+    }
+
+    public EntityModel<Categoria> toModel() {
+        return EntityModel.of(
+            this
+        );
     }
 
     public Long getId() {

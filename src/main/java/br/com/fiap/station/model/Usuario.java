@@ -2,6 +2,12 @@ package br.com.fiap.station.model;
 
 import org.springframework.hateoas.EntityModel;
 
+import br.com.fiap.station.controller.UsuarioController;
+
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
+
+import org.springframework.data.domain.Pageable;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -68,7 +74,14 @@ public class Usuario extends EntityModel<Usuario> {
         this.senha = senha;
     }
 
-    // TODO: Criar método toModel()
+    public EntityModel<Usuario> toModel() {
+        return EntityModel.of(
+            this,
+            linkTo(methodOn(UsuarioController.class).show(id)).withSelfRel(),
+            linkTo(methodOn(UsuarioController.class).destroy(id)).withRel("delete"),
+            linkTo(methodOn(UsuarioController.class).index(Pageable.unpaged(), null)).withRel("listAll")
+        );
+    }
 
     public Long getId() {
         return id;

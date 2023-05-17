@@ -4,6 +4,8 @@ import java.time.LocalDate;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
+import org.springframework.hateoas.EntityModel;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -95,6 +97,10 @@ public class Pedido {
         this.formaEntrega = formaEntrega;
         this.produtos = produtos;
         this.usuario = usuario;
+    }
+
+    public EntityModel<Pedido> toModel() {
+        return EntityModel.of(this);
     }
 
     public void addProdt(Produto p) {

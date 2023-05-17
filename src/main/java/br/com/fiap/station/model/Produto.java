@@ -4,6 +4,8 @@ import java.math.BigDecimal;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
+import org.springframework.hateoas.EntityModel;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -80,6 +82,10 @@ public class Produto {
         this.preco = preco;
         this.descricao = descricao;
         this.categorias = categorias;
+    }
+
+    public EntityModel<Produto> toModel() {
+        return EntityModel.of(this);
     }
 
     public void addCategoria(Categoria c) {
