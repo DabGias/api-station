@@ -40,25 +40,19 @@ public class Usuario {
     @Column(name = "senha_usuario")
     private String senha;
 
-
-    @Column(name = "tel_usuario")
-    private String tel;
-
     public Usuario() {}
 
-    public Usuario(Long id, String email, String nome, String senha, String tel) {
+    public Usuario(Long id, String email, String nome, String senha) {
         this.id = id;
         this.email = email;
         this.nome = nome;
         this.senha = senha;
-        this.tel = tel;
     }
 
-    public Usuario(String email, String nome, String senha, String tel) {
+    public Usuario(String email, String nome, String senha) {
         this.email = email;
         this.nome = nome;
         this.senha = senha;
-        this.tel = tel;
     }
 
     public Long getId() {
@@ -93,16 +87,8 @@ public class Usuario {
         this.senha = senha;
     }
 
-    public String getTel() {
-        return tel;
-    }
-
-    public void setTel(String tel) {
-        this.tel = tel;
-    }
-
     @Override
     public String toString() {
-        return "Usuario [id=" + id + ", email=" + email + ", nome=" + nome + ", senha=" + senha + ", tel=" + tel + "]";
+        return "Usuario [id=" + id + ", email=" + email + ", nome=" + nome + ", senha=" + senha + "]";
     }
 }
