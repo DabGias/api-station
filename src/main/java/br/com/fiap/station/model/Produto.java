@@ -1,7 +1,6 @@
 package br.com.fiap.station.model;
 
 import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -44,9 +43,6 @@ public class Produto {
     @Column(name = "desc_prodt")
     private String descricao;
 
-    @Column(name = "qtde_prodt")
-    private BigInteger quantidade;
-
     @ManyToMany(
         fetch = FetchType.EAGER,
         cascade = {
@@ -71,20 +67,18 @@ public class Produto {
 
     public Produto() {}
 
-    public Produto(Long id, String nome, BigDecimal preco, String descricao, BigInteger quantidade, Set<Categoria> categorias) {
+    public Produto(Long id, String nome, BigDecimal preco, String descricao, Set<Categoria> categorias) {
         this.id = id;
         this.nome = nome;
         this.preco = preco;
         this.descricao = descricao;
-        this.quantidade = quantidade;
         this.categorias = categorias;
     }
 
-    public Produto(String nome, BigDecimal preco, String descricao, BigInteger quantidade, Set<Categoria> categorias) {
+    public Produto(String nome, BigDecimal preco, String descricao, Set<Categoria> categorias) {
         this.nome = nome;
         this.preco = preco;
         this.descricao = descricao;
-        this.quantidade = quantidade;
         this.categorias = categorias;
     }
 
@@ -128,14 +122,6 @@ public class Produto {
         this.descricao = descricao;
     }
 
-    public BigInteger getQuantidade() {
-        return quantidade;
-    }
-
-    public void setQuantidade(BigInteger quantidade) {
-        this.quantidade = quantidade;
-    }
-
     public Set<Categoria> getCategorias() {
         return categorias;
     }
@@ -143,6 +129,6 @@ public class Produto {
     @Override
     public String toString() {
         return "Produto [id=" + id + ", nome=" + nome + ", preco=" + preco + ", descricao=" + descricao
-                + ", quantidade=" + quantidade + ", categorias=" + categorias + "]";
+                + ", categorias=" + categorias + "]";
     }
 }
