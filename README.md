@@ -1,11 +1,9 @@
 <h1 align="center">API Station</h1>
 
-<hr>
-
 <h2 align="center">Diagrama de Blocos</h2>
-<img height src="https://cdn.discordapp.com/attachments/277100245643689994/1108726859191046164/image.png"/>
-
-<hr>
+<div aling="center">
+    <img height src="https://cdn.discordapp.com/attachments/277100245643689994/1108726859191046164/image.png"/>
+</div>
 
 <h2 align="center">Endpoints 📖</h2>
 
