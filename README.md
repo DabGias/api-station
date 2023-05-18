@@ -316,7 +316,6 @@
             "nome": "Camiseta do Baby Yoda",
             "preco": 70.00,
             "descricao": "Camiseta com uma estampa do personagem Baby Yoda",
-            "qtde": 120,
             "categorias": [
                 {
                     "id": 1,
@@ -358,7 +357,6 @@
             "nome": "Camiseta do Baby Yoda",
             "preco": 70.00,
             "descricao": "Camiseta com uma estampa do personagem Baby Yoda",
-            "qtde": 120,
             "categorias": [
                 {
                     "id": 1,
@@ -399,7 +397,6 @@
             "nome": "Camiseta do Baby Yoda",
             "preco": 70.00,
             "descricao": "Camiseta com uma estampa do personagem Baby Yoda",
-            "qtde": 120,
             "categorias": [
                 {
                     "id": 1,
@@ -440,7 +437,6 @@
             "nome": "Camiseta do Baby Yoda",
             "preco": 70.00,
             "descricao": "Camiseta com uma estampa do personagem Baby Yoda",
-            "qtde": 120,
             "categorias": [
                 {
                     "id": 1,
