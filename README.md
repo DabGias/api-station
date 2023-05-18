@@ -1,7 +1,7 @@
 <h1 align="center">API Station</h1>
 
 <h2 align="center">Diagrama de Blocos</h2>
-<div aling="center">
+<div align="center">
     <img height src="https://cdn.discordapp.com/attachments/277100245643689994/1108726859191046164/image.png"/>
 </div>
 
