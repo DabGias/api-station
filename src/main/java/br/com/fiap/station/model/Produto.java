@@ -4,8 +4,11 @@ import java.math.BigDecimal;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
+import org.springframework.data.domain.Pageable;
 import org.springframework.hateoas.EntityModel;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
 
+import br.com.fiap.station.controller.ProdutoController;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -19,6 +22,9 @@ import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "tb_produto")
@@ -36,12 +42,19 @@ public class Produto {
     @Column(name = "id_prodt")
     private Long id;
 
+    @NotBlank
     @Column(name = "nome_prodt")
     private String nome;
 
+    @NotNull
+    @Min(
+        value = 0,
+        message = "O preço do produto deve ser maior que 0!"
+    )
     @Column(name = "preco_prodt")
     private BigDecimal preco;
 
+    @NotBlank
     @Column(name = "desc_prodt")
     private String descricao;
 
@@ -85,7 +98,12 @@ public class Produto {
     }
 
     public EntityModel<Produto> toModel() {
-        return EntityModel.of(this);
+        return EntityModel.of(
+            this,
+            linkTo(methodOn(ProdutoController.class).show(id)).withSelfRel(),
+            linkTo(methodOn(ProdutoController.class).destroy(id)).withRel("delete"),
+            linkTo(methodOn(ProdutoController.class).index(Pageable.unpaged(), null)).withRel("listAll")
+        );
     }
 
     public void addCategoria(Categoria c) {
@@ -134,7 +152,6 @@ public class Produto {
 
     @Override
     public String toString() {
-        return "Produto [id=" + id + ", nome=" + nome + ", preco=" + preco + ", descricao=" + descricao
-                + ", categorias=" + categorias + "]";
+        return "Produto [id=" + id + ", nome=" + nome + ", preco=" + preco + ", descricao=" + descricao + ", categorias=" + categorias + "]";
     }
 }

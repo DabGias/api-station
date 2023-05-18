@@ -4,7 +4,12 @@ import java.time.LocalDate;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
+import org.springframework.data.domain.Pageable;
 import org.springframework.hateoas.EntityModel;
+
+import br.com.fiap.station.controller.PedidoController;
+
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -22,6 +27,8 @@ import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "tb_pedido")
@@ -39,10 +46,12 @@ public class Pedido {
     @Column(name = "id_pedido")
     private Long id;
 
+    @NotNull
     @Temporal(TemporalType.DATE)
     @Column(name = "dt_pedido")
     private LocalDate dataPedido;
 
+    @NotBlank
     @Column(name = "forma_entrega_pedido")
     private String formaEntrega;
 
@@ -100,7 +109,12 @@ public class Pedido {
     }
 
     public EntityModel<Pedido> toModel() {
-        return EntityModel.of(this);
+        return EntityModel.of(
+            this,
+            linkTo(methodOn(PedidoController.class).show(id)).withSelfRel(),
+            linkTo(methodOn(PedidoController.class).destroy(id)).withRel("delete"),
+            linkTo(methodOn(PedidoController.class).index(Pageable.unpaged())).withRel("listAll")
+        );
     }
 
     public void addProdt(Produto p) {

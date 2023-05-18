@@ -12,6 +12,7 @@ import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.PagedModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,6 +27,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import br.com.fiap.station.model.Usuario;
 import br.com.fiap.station.repository.UsuarioRepository;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/station/usuario")
@@ -37,6 +39,9 @@ public class UsuarioController {
 
     @Autowired
     PagedResourcesAssembler<Usuario> assembler;
+
+    @Autowired
+    PasswordEncoder encoder;
 
     @GetMapping
     public PagedModel<EntityModel<Usuario>> index(@PageableDefault(size = 5) Pageable pageable, @RequestParam(required = false) String query) {
@@ -57,8 +62,10 @@ public class UsuarioController {
     }
 
     @PostMapping
-    public ResponseEntity<EntityModel<Usuario>> create(@RequestBody Usuario usuario, BindingResult result) {
+    public ResponseEntity<EntityModel<Usuario>> create(@RequestBody @Valid Usuario usuario, BindingResult result) {
         log.info("Cadastrando o usuário: " + usuario);
+
+        usuario.setSenha(encoder.encode(usuario.getSenha()));
 
         repo.save(usuario);
 
@@ -77,8 +84,10 @@ public class UsuarioController {
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<Usuario> update(@PathVariable Long id, @RequestBody Usuario usuario, BindingResult result) {
+    public ResponseEntity<Usuario> update(@PathVariable Long id, @RequestBody @Valid Usuario usuario, BindingResult result) {
         log.info("Editando usuário com id: " + id);
+
+        usuario.setSenha(encoder.encode(usuario.getSenha()));
         
         var u = repo.findById(id);
 

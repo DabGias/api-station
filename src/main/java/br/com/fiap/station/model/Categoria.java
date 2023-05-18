@@ -2,6 +2,12 @@ package br.com.fiap.station.model;
 
 import org.springframework.hateoas.EntityModel;
 
+import br.com.fiap.station.controller.CategoriaController;
+
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
+
+import org.springframework.data.domain.Pageable;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -10,6 +16,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity
 @Table(
@@ -33,9 +40,11 @@ public class Categoria {
     @Column(name = "id_categoria")
     private Long id;
 
+    @NotBlank
     @Column(name = "nome_categoria")
     private String nome;
 
+    @NotBlank
     @Column(name = "desc_categoria")
     private String descricao;
 
@@ -54,7 +63,10 @@ public class Categoria {
 
     public EntityModel<Categoria> toModel() {
         return EntityModel.of(
-            this
+            this,
+            linkTo(methodOn(CategoriaController.class).show(id)).withSelfRel(),
+            linkTo(methodOn(CategoriaController.class).destroy(id)).withRel("delete"),
+            linkTo(methodOn(CategoriaController.class).index(Pageable.unpaged())).withRel("listAll")
         );
     }
 

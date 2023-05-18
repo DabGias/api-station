@@ -16,6 +16,10 @@ import jakarta.persistence.Id;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(
@@ -45,15 +49,22 @@ public class Usuario extends EntityModel<Usuario> {
     @Column(name = "id_usuario")
     private Long id;
 
+    @Email
     @Column(name = "email_usuario")
     private String email;
 
+    @NotBlank
+    @Pattern(regexp = "^[A-Z][a-z].* [A-Z][a-z]+$")
     @Column(name = "nome_usuario")
     private String nome;
 
+    @NotBlank
+    @Pattern(regexp = "^\\d{3}\\.?\\d{3}\\.?\\d{3}\\-?\\d{2}$")
     @Column(name = "cpf_usuario")
     private String cpf;
 
+    @NotBlank
+    @Size(min = 8)
     @Column(name = "senha_usuario")
     private String senha;
 

@@ -26,6 +26,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import br.com.fiap.station.model.Produto;
 import br.com.fiap.station.repository.ProdutoRepository;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/station/produto")
@@ -57,7 +58,7 @@ public class ProdutoController {
     }
 
     @PostMapping
-    public ResponseEntity<EntityModel<Produto>> create(@RequestBody Produto prodt, BindingResult result) {
+    public ResponseEntity<EntityModel<Produto>> create(@RequestBody @Valid Produto prodt, BindingResult result) {
         log.info("Cadastrando o produto: " + prodt);
 
         repo.save(prodt);
@@ -77,7 +78,7 @@ public class ProdutoController {
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<Produto> update(@PathVariable Long id, @RequestBody Produto prodt, BindingResult result) {
+    public ResponseEntity<Produto> update(@PathVariable Long id, @RequestBody @Valid Produto prodt, BindingResult result) {
         log.info("Editndo o produto com id: " + id);
 
         var p = repo.findById(id);

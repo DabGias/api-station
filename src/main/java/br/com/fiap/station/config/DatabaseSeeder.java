@@ -7,6 +7,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import br.com.fiap.station.model.Categoria;
 import br.com.fiap.station.model.Pedido;
@@ -32,11 +33,14 @@ public class DatabaseSeeder implements CommandLineRunner {
     @Autowired
     PedidoRepository repoPedido;
 
+    @Autowired
+    PasswordEncoder encoder;
+
     @Override
     public void run(String... args) throws Exception {
-        Usuario usuario1 = new Usuario("usuario1@email.com.br", "Pedro Silva Santos", "1234567890", "senha");
-        Usuario usuario2 = new Usuario("usuario2@email.com.br", "João da Silva dos Santos", "123456789", "senha");
-        Usuario usuario3 = new Usuario("usuario3@email.com.br", "Marcelo Miklos", "12345678", "senha");
+        Usuario usuario1 = new Usuario("usuario1@email.com.br", "Pedro Silva Santos", "111.111.111-10", encoder.encode("12345678"));
+        Usuario usuario2 = new Usuario("usuario2@email.com.br", "João Da Silva Dos Santos", "111.111.111-11", encoder.encode("12345678"));
+        Usuario usuario3 = new Usuario("usuario3@email.com.br", "Marcelo Miklos", "111.111.111-12", encoder.encode("12345678"));
         
         Categoria cat1 = new Categoria("Roupas", "Roupas de diversos estilos e modelos!");
         Categoria cat2 = new Categoria("Eletrônicos", "Os modelos mais avançados e atualizados!");

@@ -25,6 +25,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import br.com.fiap.station.model.Pedido;
 import br.com.fiap.station.repository.PedidoRepository;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/station/pedido")
@@ -56,7 +57,7 @@ public class PedidoController {
     }
 
     @PostMapping
-    public ResponseEntity<EntityModel<Pedido>> create(@RequestBody Pedido pedido, BindingResult result) {
+    public ResponseEntity<EntityModel<Pedido>> create(@RequestBody @Valid Pedido pedido, BindingResult result) {
         log.info("Cadastrando o pedido: " + pedido);
 
         repo.save(pedido);
@@ -76,7 +77,7 @@ public class PedidoController {
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<Pedido> update(@PathVariable Long id, @RequestBody Pedido pedido, BindingResult result) {
+    public ResponseEntity<Pedido> update(@PathVariable Long id, @RequestBody @Valid Pedido pedido, BindingResult result) {
         log.info("Editando pedido com id: " + id);
 
         var p = repo.findById(id);

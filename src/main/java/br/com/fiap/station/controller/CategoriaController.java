@@ -25,6 +25,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import br.com.fiap.station.model.Categoria;
 import br.com.fiap.station.repository.CategoriaRepository;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/station/categoria")
@@ -56,7 +57,7 @@ public class CategoriaController {
     }
 
     @PostMapping
-    public ResponseEntity<EntityModel<Categoria>> create(@RequestBody Categoria categoria, BindingResult result) {
+    public ResponseEntity<EntityModel<Categoria>> create(@RequestBody @Valid Categoria categoria, BindingResult result) {
         log.info("Cadastrando a categoria: " + categoria);
 
         repo.save(categoria);
@@ -76,7 +77,7 @@ public class CategoriaController {
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<Categoria> update(@PathVariable Long id, @RequestBody Categoria categoria, BindingResult result) {
+    public ResponseEntity<Categoria> update(@PathVariable Long id, @RequestBody @Valid Categoria categoria, BindingResult result) {
         log.info("Editando categoria com id: " + id);
 
         var c = repo.findById(id);
