@@ -90,13 +90,9 @@ public class DatabaseSeeder implements CommandLineRunner {
         pedido3.setUsuario(usuario3);
         pedido3.addProdt(prodt3);
         pedido3.addProdt(prodt1);
-
+        
         repoPedido.saveAll(List.of(
             pedido1, pedido2, pedido3
-        ));
-
-        repoUsuario.saveAll(List.of(
-            usuario1, usuario2, usuario3
         ));
         
         repoProduto.saveAll(List.of(
@@ -105,6 +101,10 @@ public class DatabaseSeeder implements CommandLineRunner {
 
         repoCategoria.saveAll(List.of(
             cat1, cat2, cat3
+        ));
+        
+        repoUsuario.saveAll(List.of(
+            usuario1, usuario2, usuario3
         ));
     }
 }
