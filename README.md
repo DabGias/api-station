@@ -2,7 +2,7 @@
 
 <h2 align="center">📝 Requisitos 📝</h2>
 
-🚩**Primeiramente precisamos criar o banco de dados (SQL da Azure) e o app Spring (Aplicativos do Azure Spring). Após ambos os serviços estarem disponíveis vá até o recurso de banco de dados na Azure e procure pela URL de conexão do seu banco de dados; tendo a sua URL salva, substitua o valor da propriedade `spring.datasource.url` pela URL de conexão (🚩 **ATENÇÃO: NÃO SE ESQUEÇA DE MODIFICAR A SENHA DO SEU USUÁRIO NA URL DE CONEXÃO** 🚩). Depois da criação destes dois serviços devemos importar o repositório para o Azure DevOps (`git clone https://github.com/DabGias/api-station`), devemos garantir que o banco de dados e o app Spring estão devidamente implantados na nuvem.** 🚩
+🚩**Primeiramente precisamos criar o banco de dados (SQL da Azure) e o app Spring (Aplicativos do Azure Spring). Após ambos os serviços estarem disponíveis vá até o recurso de banco de dados na Azure e procure pela URL de conexão do seu banco de dados; tendo a sua URL salva, substitua o valor da propriedade `spring.datasource.url` pela URL de conexão ( **ATENÇÃO: NÃO SE ESQUEÇA DE MODIFICAR A SENHA DO SEU USUÁRIO NA URL DE CONEXÃO**). Depois da criação destes dois serviços devemos importar o repositório para o Azure DevOps (`git clone https://github.com/DabGias/api-station`), devemos garantir que o banco de dados e o app Spring estão devidamente implantados na nuvem.** 🚩
 
 Durante a importação mostrada no vídeo usaremos a seguinte configuração YAML:
 ```yaml
