@@ -7,33 +7,33 @@
 Durante a importação mostrada no vídeo usaremos a seguinte configuração YAML:
 ```yaml
 trigger:
-- main
+    - main
 
 pool:
-vmImage: ubuntu-latest
+    vmImage: ubuntu-latest
 
 steps:
-- task: Maven@3
-inputs:
-	mavenPomFile: 'pom.xml'
-	mavenOptions: '-Xmx3072m'
-	javaHomeOption: 'JDKVersion'
-	jdkVersionOption: '1.17'
-	jdkArchitectureOption: 'x64'
-	publishJUnitResults: true
-	testResultsFiles: '**/surefire-reports/TEST-*.xml'
-	goals: 'package'
+    - task: Maven@3
+        inputs:
+	        mavenPomFile: 'pom.xml'
+	        mavenOptions: '-Xmx3072m'
+	        javaHomeOption: 'JDKVersion'
+	        jdkVersionOption: '1.17'
+	        jdkArchitectureOption: 'x64'
+	        publishJUnitResults: true
+	        testResultsFiles: '**/surefire-reports/TEST-*.xml'
+	        goals: 'package'
 
-- task: AzureSpringCloud@0
-inputs:
-	azureSubscription: '<seu plano da Azure>'
-	Action: 'Deploy'
-	AzureSpringCloud: <nome do seu serviço Aplicativos do Azure Spring>
-	AppName: <nome do app>
-	DeploymentType: 'Artifacts'
-	UseStagingDeployment: false
-	DeploymentName: 'default'
-	Package: ./target/station-0.0.1-SNAPSHOT.jar
+    - task: AzureSpringCloud@0
+        inputs:
+	        azureSubscription: '<seu plano da Azure>'
+	        Action: 'Deploy'
+	        AzureSpringCloud: <nome do seu serviço Aplicativos do Azure Spring>
+	        AppName: <nome do app>
+	        DeploymentType: 'Artifacts'
+	        UseStagingDeployment: false
+			DeploymentName: 'default'
+	        Package: ./target/station-0.0.1-SNAPSHOT.jar
 ```
 
 Agora basta testar a API através da URL fornecida como "Teste de ponto de extremidade" dentro do app criado no serviço de Aplicativos do Azure Spring.
