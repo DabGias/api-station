@@ -2,22 +2,38 @@
 
 <h2 align="center">📝 Requisitos 📝</h2>
 
-🚩**Primeiramente, após o clone (`git clone https://github.com/DabGias/api-station`), devemos garantir que o banco de dados SQL da Azure está devidamente implantado na nuvem.** 🚩
+🚩**Primeiramente precisamos criar o banco de dados (SQL da Azure) e o app Spring (Aplicativos do Azure Spring). Após ambos os serviços estarem disponíveis vá até o recurso de banco de dados na Azure e procure pela URL de conexão do seu banco de dados; tendo a sua URL salva, substitua o valor da propriedade `spring.datasource.url` pela URL de conexão (🚩 **ATENÇÃO: NÃO SE ESQUEÇA DE MODIFICAR A SENHA DO SEU USUÁRIO NA URL DE CONEXÃO** 🚩). Depois da criação destes dois serviços devemos importar o repositório para o Azure DevOps (`git clone https://github.com/DabGias/api-station`), devemos garantir que o banco de dados e o app Spring estão devidamente implantados na nuvem.** 🚩
 
-Após o banco de dados estar disponível vá até o recurso na Azure e procure pela URL de conexão do seu banco de dados; tendo a sua URL salva, substitua o valor da propriedade `spring.datasource.url` pela URL de conexão (🚩 **ATENÇÃO: NÃO SE ESQUEÇA DE MODIFICAR A SENHA DO SEU USUÁRIO NA URL DE CONEXÃO** 🚩).
+Durante a importação mostrada no vídeo usaremos a seguinte configuração YAML:
+```yaml
+trigger:
+	- main
 
-Depois da modificação podemos então compilar o código em sua máquina local, para isso foram usados Java 17 e Maven, com os seguintes comandos:
-```maven
-mvn compile
-mvn package
-```
+pool:
+	vmImage: ubuntu-latest
 
-Para realizar-mos o deploy a própria Azure recomenda os seguintes comandos **(que devem ser executados em sua máquina local)**: 
-```azure
-az extension add -n spring
-az login
-az account set -s <ID da assinatura do serviço>
-az spring app deploy -s <nome do serviço Aplicativos Azure Spring> -g rg-station-GrupoAtlas -n <nome do aplicativo criado dentro do serviço>  --artifact-path <path do arquivo .jar>
+steps:
+	- task: Maven@3
+	inputs:
+		mavenPomFile: 'pom.xml'
+		mavenOptions: '-Xmx3072m'
+		javaHomeOption: 'JDKVersion'
+		jdkVersionOption: '1.17'
+		jdkArchitectureOption: 'x64'
+		publishJUnitResults: true
+		testResultsFiles: '**/surefire-reports/TEST-*.xml'
+		goals: 'package'
+
+	- task: AzureSpringCloud@0
+	inputs:
+		azureSubscription: '<seu plano da Azure>'
+		Action: 'Deploy'
+		AzureSpringCloud: <nome do seu serviço Aplicativos do Azure Spring>
+		AppName: <nome do app>
+		DeploymentType: 'Artifacts'
+		UseStagingDeployment: false
+		DeploymentName: 'default'
+		Package: ./target/station-0.0.1-SNAPSHOT.jar
 ```
 
 Agora basta testar a API através da URL fornecida como "Teste de ponto de extremidade" dentro do app criado no serviço de Aplicativos do Azure Spring.
